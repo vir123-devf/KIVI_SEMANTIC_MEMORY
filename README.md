@@ -417,7 +417,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 > and thoughts result in action.”**  
 > — *Dr. A. P. J. Abdul Kalam*
 
-*Every meaningful project begins with an idea.*
+**Thank You for Viewing!** 💙
 
 </div>
 
