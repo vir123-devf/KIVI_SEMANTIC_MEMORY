@@ -405,7 +405,21 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Acknowledgments
 
 * FastAPI · SQLAlchemy · Alembic · Google Gemini · pgvector  
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)  
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+
+---
+
+<div align="center">
+
+### 🚀 Build. Innovate. Impact.
+
+> **“Dream, dream, dream. Dreams transform into thoughts  
+> and thoughts result in action.”**  
+> — *Dr. A. P. J. Abdul Kalam*
+
+*Every meaningful project begins with an idea.*
+
+</div>
 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
