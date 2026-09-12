@@ -6,7 +6,7 @@ Dictation → durable facts & preferences → Hey Kivi answers you can inspect, 
 
 The runnable app lives in **[`kivi-memory/`](kivi-memory/)**. Same README is there with in-folder paths.
 
-[Watch the Demo](https://youtu.be/zk7cpzY6mDo) · [Open the live UI](http://127.0.0.1:8000/) · [API docs](http://127.0.0.1:8000/docs) · [Positioning](https://github.com/vir123-devf/KIVI_SEMANTIC_MEMORY/blob/main/positioning-statement.md)· [Product vision](https://github.com/vir123-devf/KIVI_SEMANTIC_MEMORY/blob/main/product-vision.md)
+[Watch the Demo](https://youtu.be/zk7cpzY6mDo) · [Open the live UI](http://127.0.0.1:8000/) · [API docs](http://127.0.0.1:8000/docs) · [Positioning Statement](https://github.com/vir123-devf/KIVI_SEMANTIC_MEMORY/blob/main/positioning-statement.md)· [Product vision](https://github.com/vir123-devf/KIVI_SEMANTIC_MEMORY/blob/main/product-vision.md)
 
 
 
