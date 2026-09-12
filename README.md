@@ -1,4 +1,4 @@
-# Kivi 🥝
+# Kivi (Semantic-memory layer) 🥝
 
 **Semantic memory for a voice assistant that cites its sources — or stays quiet.**
 
