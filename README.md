@@ -339,11 +339,7 @@ Honest constraints. Several of these are *load-bearing* (they follow the product
 
 ### What AI was used for (Part Two — allowed)
 
-Architecture discussion, schema and extraction/retrieval/agent code, live UI and SSE, migrations, corpus tooling, eval harness, and this README were produced **with generative-AI assistance** (Cursor + Gemini in the running product). That matches the assignment’s expectation for the engineering build.
-
-### What AI must not pretend to own (Part One)
-
-`docs/positioning-statement.md` and `docs/product-vision.md` are strategy. The assignment asked for an unassisted first submission. Later revisions should still be a position **you can defend in an interview** (clerk not companion; remember durable speech; never invent; inspect / supersede / reject).
+Architecture discussion, schema and extraction/retrieval/agent code, live UI and SSE, migrations, corpus tooling, eval harness, and this README were produced **with generative-AI assistance** (Cursor + Gemini in the running product).
 
 ### Models in the running system
 
@@ -354,12 +350,6 @@ Architecture discussion, schema and extraction/retrieval/agent code, live UI and
 | Local fallback embed | SHA-256–seeded Gaussian | Tests and keyless ingest still run |
 
 Override `EXTRACTION_MODEL`, `AGENT_MODEL`, `EMBEDDING_MODEL` in `.env` with no code change.
-
-### How AI is constrained at runtime
-
-- Extraction prompt: prefer **under-extracting**; most dictations should yield 0–2 candidates.
-- Agent prompt: **only** tool-returned information; empty tools → say so.
-- Eval: citations that are not in the tool trace **fail grounding**, even if the sentence sounds right.
 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
@@ -376,13 +366,35 @@ Override `EXTRACTION_MODEL`, `AGENT_MODEL`, `EMBEDDING_MODEL` in `.env` with no 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
 ---
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+---
 
 ## Contact
 
-**Virendra Badgotya:**
-M.Tech, DSAI Department, IIT Madras 
-[![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/virendra-badgotya-ai/)
-[![](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:da26m027@smail.iitm.ac.in)
+<div align="center">
+
+# Virendra Badgotya
+
+**M.Tech — Data Science & Artificial Intelligence (DSAI)**
+**Indian Institute of Technology Madras (IIT Madras)**
+
+<a href="https://www.linkedin.com/in/virendra-badgotya-ai/">
+  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+</a>
+&nbsp;
+<a href="mailto:da26m027@smail.iitm.ac.in">
+  <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"/>
+</a>
+
+</div>
+
  
 
 
@@ -394,8 +406,6 @@ M.Tech, DSAI Department, IIT Madras
 
 * FastAPI · SQLAlchemy · Alembic · Google Gemini · pgvector  
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)  
-* [Face_Trace](https://github.com/vir123-devf/Face_Trace) README structure  
-* Shields.io  
 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
