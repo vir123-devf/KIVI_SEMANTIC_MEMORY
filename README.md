@@ -236,7 +236,7 @@ Walkthrough of Hey Kivi, live memory, and fact updates:
 
 **[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
 
-[![Kivi demo](https://img.youtube.com/vi/VghEaDrttvo/hqdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
+[![Kivi demo](https://img.youtube.com/vi/zk7cpzY6mDo/maxresdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
 
 ```powershell
 cd kivi-memory
