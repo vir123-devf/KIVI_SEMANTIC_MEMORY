@@ -192,6 +192,17 @@ Stack: FastAPI, SQLAlchemy, Alembic, Gemini, Postgres/pgvector or SQLite, vanill
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
 ---
+## Usage
+
+### Demo video
+
+Walkthrough of Hey Kivi, live memory, and fact updates:
+
+**[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
+
+[![Kivi demo](https://img.youtube.com/vi/zk7cpzY6mDo/maxresdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
+
+---
 
 ## Getting Started
 
@@ -228,15 +239,7 @@ docker compose up -d && alembic upgrade head   # optional
 
 ---
 
-## Usage
 
-### Demo video
-
-Walkthrough of Hey Kivi, live memory, and fact updates:
-
-**[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
-
-[![Kivi demo](https://img.youtube.com/vi/zk7cpzY6mDo/maxresdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
 
 ```powershell
 cd kivi-memory
