@@ -6,7 +6,7 @@ Dictation → durable facts & preferences → Hey Kivi answers you can inspect, 
 
 The runnable app lives in **[`kivi-memory/`](kivi-memory/)**. Same README is there with in-folder paths.
 
-[Watch the Demo](https://www.youtube.com/watch?v=VghEaDrttvo) · [Open the live UI](http://127.0.0.1:8000/) · [API docs](http://127.0.0.1:8000/docs) · [Positioning](kivi-memory/docs/positioning-statement.md) · [Product vision](kivi-memory/docs/product-vision.md)
+[Watch the Demo](https://youtu.be/zk7cpzY6mDo) · [Open the live UI](http://127.0.0.1:8000/) · [API docs](http://127.0.0.1:8000/docs) · [Positioning](kivi-memory/docs/positioning-statement.md) · [Product vision](kivi-memory/docs/product-vision.md)
 
 
 
@@ -234,9 +234,9 @@ docker compose up -d && alembic upgrade head   # optional
 
 Walkthrough of Hey Kivi, live memory, and fact updates:
 
-**[Watch on YouTube](https://www.youtube.com/watch?v=VghEaDrttvo)**
+**[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
 
-[![Kivi demo](https://img.youtube.com/vi/VghEaDrttvo/hqdefault.jpg)](https://www.youtube.com/watch?v=VghEaDrttvo)
+[![Kivi demo](https://img.youtube.com/vi/VghEaDrttvo/hqdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
 
 ```powershell
 cd kivi-memory
