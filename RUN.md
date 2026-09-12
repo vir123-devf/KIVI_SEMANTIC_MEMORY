@@ -2,7 +2,7 @@
 
 **Primary review method:** the FastAPI + Gemini app in **`kivi-memory/`** (live chat UI at `/`). SQLite by default; Postgres + pgvector optional.
 
-Demo: [https://www.youtube.com/watch?v=VghEaDrttvo](https://www.youtube.com/watch?v=VghEaDrttvo)
+Demo: [https://www.youtube.com/watch?v=zk7cpzY6mDo](https://youtu.be/zk7cpzY6mDo)
 
 ---
 
