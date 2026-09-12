@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Hey Kivi</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 760px; margin: 40px auto; color: #1a1a1a; }
+  h1 { font-size: 20px; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab { padding: 6px 14px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-size: 13px; }
+  .tab.active { background: #1a1a1a; color: white; }
+  #chat { border: 1px solid #ddd; border-radius: 10px; padding: 16px; min-height: 300px; margin-bottom: 12px; }
+  .msg { margin-bottom: 14px; }
+  .msg .role { font-size: 11px; color: #888; text-transform: uppercase; }
+  .trace { font-size: 12px; color: #666; background: #f7f7f7; padding: 8px; border-radius: 6px; margin-top: 6px; white-space: pre-wrap; }
+  input[type=text] { width: 78%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+  button { padding: 8px 14px; border-radius: 6px; border: none; background: #2f7a3d; color: white; cursor: pointer; }
+  .mem-row { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; font-size: 14px; }
+  .mem-kind { font-size: 11px; color: white; background: #888; padding: 2px 8px; border-radius: 10px; margin-right: 8px; }
+  .del { color: #c0392b; cursor: pointer; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>🥝 Hey Kivi</h1>
+<div class="tabs">
+  <div class="tab active" onclick="showTab('chat')">Hey Kivi</div>
+  <div class="tab" onclick="showTab('memories')">What Kivi Remembers</div>
+</div>
+
+<div id="chat-view">
+  <div id="chat"></div>
+  <input id="q" type="text" placeholder="Ask Hey Kivi..." onkeydown="if(event.key==='Enter') send()"/>
+  <button onclick="send()">Send</button>
+</div>
+
+<div id="mem-view" style="display:none">
+  <p style="font-size:13px;color:#666">Everything Kivi currently remembers about you. Remove anything that's wrong or unwanted.</p>
+  <div id="mem-list"></div>
+</div>
+
+<script>
+const API = "http://localhost:8000";
+
+function showTab(tab) {
+  document.getElementById('chat-view').style.display = tab === 'chat' ? 'block' : 'none';
+  document.getElementById('mem-view').style.display = tab === 'memories' ? 'block' : 'none';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  if (tab === 'memories') loadMemories();
+}
+
+async function send() {
+  const input = document.getElementById('q');
+  const query = input.value.trim();
+  if (!query) return;
+  input.value = '';
+  appendMsg('You', query);
+  const res = await fetch(`${API}/hey_kivi`, {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({query})
+  });
+  const data = await res.json();
+  appendMsg('Kivi', data.response, `${data.reasoning} · ${data.latency_ms}ms · ${data.input_tokens + data.output_tokens} tokens`);
+}
+
+function appendMsg(role, text, trace) {
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = 'msg';
+  div.innerHTML = `<div class="role">${role}</div><div>${text}</div>` +
+    (trace ? `<div class="trace">${trace}</div>` : '');
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function loadMemories() {
+  const res = await fetch(`${API}/memories`);
+  const data = await res.json();
+  const list = document.getElementById('mem-list');
+  list.innerHTML = '';
+  data.memories.forEach(m => {
+    const row = document.createElement('div');
+    row.className = 'mem-row';
+    row.innerHTML = `<div><span class="mem-kind">${m.kind}</span>${m.content}</div>
+      <span class="del" onclick="del('${m.id}')">remove</span>`;
+    list.appendChild(row);
+  });
+}
+
+async function del(id) {
+  await fetch(`${API}/memories/${id}`, {method: 'DELETE'});
+  loadMemories();
+}
+</script>
+</body>
+</html>

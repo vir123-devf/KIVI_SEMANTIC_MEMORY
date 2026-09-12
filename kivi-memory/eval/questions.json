@@ -1,0 +1,60 @@
+[
+  {
+    "id": "q1",
+    "question": "Who is my manager?",
+    "expects_answer_contains": ["Priya"],
+    "no_answer_expected": false
+  },
+  {
+    "id": "q2",
+    "question": "What's the codename of my current project?",
+    "expects_answer_contains": ["Falcon"],
+    "no_answer_expected": false
+  },
+  {
+    "id": "q3",
+    "question": "What time does my team stand up each day?",
+    "expects_answer_contains": ["9:30"],
+    "no_answer_expected": false
+  },
+  {
+    "id": "q4",
+    "question": "What's our current Q3 revenue target? I think I mentioned it more than once.",
+    "expects_answer_contains": ["2.6"],
+    "no_answer_expected": false,
+    "notes": "Tests contradiction handling -- corpus has an early $2.4M mention later corrected to $2.6M. Answer should reflect the latest active fact, not the superseded one."
+  },
+  {
+    "id": "q5",
+    "question": "How do I usually sign off my emails?",
+    "expects_answer_contains": ["Best, Vir", "Best,Vir"],
+    "no_answer_expected": false
+  },
+  {
+    "id": "q6",
+    "question": "Find a dictation I did in Slack and polish it for a meeting I'm walking into.",
+    "expects_answer_contains": [],
+    "no_answer_expected": false,
+    "notes": "Tests the multi-tool path: search_episodes(source_app='slack') then polish_text() using get_preferences() output."
+  },
+  {
+    "id": "q7",
+    "question": "What is my dog's name?",
+    "expects_answer_contains": [],
+    "no_answer_expected": true,
+    "notes": "Not present anywhere in the corpus -- system must abstain, not invent an answer."
+  },
+  {
+    "id": "q8",
+    "question": "What did I say about our competitor's Series B funding round?",
+    "expects_answer_contains": [],
+    "no_answer_expected": true,
+    "notes": "Plausible-sounding but not in corpus -- abstention check."
+  },
+  {
+    "id": "q9",
+    "question": "What tone do I usually use in Slack messages?",
+    "expects_answer_contains": ["direct"],
+    "no_answer_expected": false
+  }
+]

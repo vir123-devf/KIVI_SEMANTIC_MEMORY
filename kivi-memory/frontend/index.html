@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kivi — Live Memory</title>
+<style>
+  :root { --green: #6fbf3a; --dark: #0d1013; --cream: #f4f2ea; --muted: #6b7280; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, Segoe UI, sans-serif; margin: 0; background: var(--cream); color: var(--dark); }
+  header { background: var(--dark); color: var(--cream); padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+  header .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; }
+  header .dot.live { background: var(--green); box-shadow: 0 0 0 4px rgba(111,191,58,.25); }
+  h1 { font-size: 18px; margin: 0; flex: 1; }
+  #liveLabel { font-size: 12px; color: #aaa; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; max-width: 1280px; margin: 0 auto; }
+  .panel { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .panel h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin: 0 0 12px; }
+  #chat-log { height: 360px; overflow-y: auto; border: 1px solid #e5e2d8; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 14px; }
+  .msg { margin-bottom: 12px; }
+  .msg.user { text-align: right; }
+  .msg .bubble { display: inline-block; padding: 8px 12px; border-radius: 10px; max-width: 85%; white-space: pre-wrap; }
+  .msg.user .bubble { background: var(--dark); color: white; }
+  .msg.kivi .bubble { background: #eef6e5; }
+  .msg .cites { font-size: 11px; color: #888; margin-top: 4px; }
+  .row { display: flex; gap: 8px; }
+  input, textarea, button, select { font-size: 14px; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; }
+  textarea { width: 100%; min-height: 64px; resize: vertical; }
+  button { background: var(--green); color: white; border: none; cursor: pointer; font-weight: 600; }
+  button:hover { opacity: 0.9; }
+  button.ghost { background: #eee; color: var(--dark); }
+  button.del { background: #d9534f; padding: 2px 8px; font-size: 11px; }
+  button.save { padding: 2px 8px; font-size: 11px; }
+  .hint { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+  .tab { padding: 6px 12px; border-radius: 6px; cursor: pointer; background: #eee; font-size: 13px; }
+  .tab.active { background: var(--dark); color: white; }
+  .mem-list { max-height: 340px; overflow-y: auto; }
+  .mem-item { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 13px; }
+  .mem-item.dim { opacity: 0.55; }
+  .mem-item .meta { color: #888; font-size: 11px; margin-top: 4px; }
+  .mem-item input { width: 100%; margin: 4px 0; }
+  .flash { animation: flash 800ms ease; }
+  @keyframes flash { from { background: #e7f6d5; } to { background: transparent; } }
+  .add-box { background: #f7f6f1; border-radius: 8px; padding: 10px; margin-top: 12px; }
+  .add-box h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #666; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div id="liveDot" class="dot"></div>
+  <h1>Kivi</h1>
+  <span id="liveLabel">connecting…</span>
+</header>
+
+<div class="layout">
+  <div class="panel">
+    <h2>Chat</h2>
+    <p class="hint">Tell Kivi durable facts in conversation (“my manager is Priya Nair”) and they are extracted immediately. Ask questions against live memory.</p>
+    <div id="chat-log"></div>
+    <div class="row">
+      <input id="chatInput" style="flex:1" placeholder="Talk to Kivi…" onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    <div class="add-box">
+      <h3>Remember a note</h3>
+      <textarea id="noteInput" placeholder="Paste a dictation, meeting note, or anything Kivi should remember."></textarea>
+      <div class="row" style="margin-top:8px">
+        <select id="noteSource">
+          <option value="notes">notes</option>
+          <option value="slack">slack</option>
+          <option value="gmail">gmail</option>
+          <option value="docs">docs</option>
+          <option value="zoom">zoom</option>
+        </select>
+        <button onclick="rememberNote()">Extract &amp; save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Live memory</h2>
+    <p class="hint" id="extractHint">Facts update in this panel the moment they are created, edited, or superseded.</p>
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('facts')">Facts</div>
+      <div class="tab" onclick="showTab('preferences')">Preferences</div>
+      <div class="tab" onclick="showTab('episodes')">Episodes</div>
+    </div>
+    <div id="mem-list" class="mem-list"></div>
+    <div class="add-box" id="addFactBox">
+      <h3>Add or correct a fact</h3>
+      <div class="row">
+        <input id="newSubject" placeholder="subject (e.g. manager)" style="flex:1">
+        <input id="newValue" placeholder="value (e.g. Priya Nair)" style="flex:1">
+        <button onclick="addFact()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = "";
+let userId = localStorage.getItem("kivi_user_id") || "";
+let currentTab = "facts";
+let events = null;
+let sending = false;
+
+function setLive(on) {
+  document.getElementById("liveDot").classList.toggle("live", on);
+  document.getElementById("liveLabel").textContent = on ? "live" : "offline";
+}
+
+async function ensureSession() {
+  if (!userId) {
+    const res = await fetch(`${API}/session`, { method: "POST" });
+    const data = await res.json();
+    userId = data.user_id;
+    localStorage.setItem("kivi_user_id", userId);
+  }
+}
+
+function connectEvents() {
+  if (events) events.close();
+  events = new EventSource(`${API}/events/${userId}`);
+  events.onopen = () => setLive(true);
+  events.onerror = () => setLive(false);
+  events.onmessage = (ev) => {
+    const data = JSON.parse(ev.data);
+    if (data.type === "memory_changed") {
+      const hint = document.getElementById("extractHint");
+      hint.textContent = `Updated just now (${data.reason.replaceAll("_", " ")}).`;
+      loadMemories(true);
+    }
+  };
+}
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  event.target.classList.add("active");
+  document.getElementById("addFactBox").style.display = tab === "facts" ? "block" : "none";
+  loadMemories();
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+}
+
+async function loadMemories(flash) {
+  if (!userId) return;
+  const res = await fetch(`${API}/memories/${userId}/${currentTab}`);
+  const data = await res.json();
+  const el = document.getElementById("mem-list");
+  el.innerHTML = "";
+  if (!Array.isArray(data) || data.length === 0) {
+    el.innerHTML = "<p style='color:#888'>Nothing stored yet. Chat or save a note.</p>";
+    return;
+  }
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "mem-item" + (flash ? " flash" : "") + (item.status && item.status !== "active" ? " dim" : "");
+    if (currentTab === "facts") {
+      div.innerHTML = `
+        <input data-k="subject" value="${escapeHtml(item.subject)}">
+        <input data-k="value" value="${escapeHtml(item.value)}">
+        <div class="row">
+          <button class="save" onclick="saveFact('${item.id}', this)">Update</button>
+          <button class="del" onclick="deleteMem('fact', '${item.id}')">Remove</button>
+        </div>
+        <div class="meta">${escapeHtml(item.status)} · confidence ${(item.confidence || 0).toFixed(2)} · ${new Date(item.updated_at).toLocaleString()}</div>`;
+    } else if (currentTab === "preferences") {
+      div.innerHTML = `
+        <input data-k="category" value="${escapeHtml(item.category)}">
+        <input data-k="description" value="${escapeHtml(item.description)}">
+        <div class="row">
+          <button class="save" onclick="savePref('${item.id}', this)">Update</button>
+          <button class="del" onclick="deleteMem('preference', '${item.id}')">Remove</button>
+        </div>
+        <div class="meta">${escapeHtml(item.status)} · strength ${(item.strength || 0).toFixed(2)} · seen ${item.evidence_count}x</div>`;
+    } else {
+      div.innerHTML = `<div><b>${escapeHtml(item.source_app || "unknown")}</b> — ${escapeHtml(item.summary || item.formatted_text)}</div>
+        <div class="meta">${new Date(item.occurred_at).toLocaleString()}</div>`;
+    }
+    el.appendChild(div);
+  });
+}
+
+async function saveFact(id, btn) {
+  const box = btn.closest(".mem-item");
+  const subject = box.querySelector('[data-k="subject"]').value.trim();
+  const value = box.querySelector('[data-k="value"]').value.trim();
+  await fetch(`${API}/memories/fact/${id}`, {
+    method: "PATCH", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject, value }),
+  });
+}
+
+async function savePref(id, btn) {
+  const box = btn.closest(".mem-item");
+  const category = box.querySelector('[data-k="category"]').value.trim();
+  const description = box.querySelector('[data-k="description"]').value.trim();
+  await fetch(`${API}/memories/preference/${id}`, {
+    method: "PATCH", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ category, description }),
+  });
+}
+
+async function addFact() {
+  const subject = document.getElementById("newSubject").value.trim();
+  const value = document.getElementById("newValue").value.trim();
+  if (!subject || !value) return;
+  await fetch(`${API}/memories/fact`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, subject, value }),
+  });
+  document.getElementById("newSubject").value = "";
+  document.getElementById("newValue").value = "";
+}
+
+async function deleteMem(type, id) {
+  await fetch(`${API}/memories/${type}/${id}`, { method: "DELETE" });
+}
+
+async function rememberNote() {
+  const text = document.getElementById("noteInput").value.trim();
+  if (!text) return;
+  const source_app = document.getElementById("noteSource").value;
+  const res = await fetch(`${API}/remember`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, text, source_app }),
+  });
+  const data = await res.json();
+  if (res.ok) {
+    document.getElementById("noteInput").value = "";
+    appendMsg("kivi", `Saved. Extracted ${data.facts_created} fact(s), ${data.preferences_created} preference(s), superseded ${data.facts_superseded}.`);
+  } else {
+    appendMsg("kivi", "Could not save that note.");
+  }
+}
+
+function appendMsg(role, text, cites) {
+  const log = document.getElementById("chat-log");
+  const div = document.createElement("div");
+  div.className = `msg ${role}`;
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+  div.appendChild(bubble);
+  if (cites && (cites.episodes.length || cites.facts.length || cites.preferences.length)) {
+    const c = document.createElement("div");
+    c.className = "cites";
+    c.textContent = `sources: ${cites.episodes.length} episode(s), ${cites.facts.length} fact(s), ${cites.preferences.length} preference(s)`;
+    div.appendChild(c);
+  }
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const msg = input.value.trim();
+  if (!msg || sending) return;
+  sending = true;
+  appendMsg("user", msg);
+  input.value = "";
+  try {
+    const res = await fetch(`${API}/hey-kivi`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, message: msg }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      appendMsg("kivi", "The server returned an error.");
+      return;
+    }
+    appendMsg("kivi", data.answer, {
+      episodes: data.cited_episode_ids || [],
+      facts: data.cited_fact_ids || [],
+      preferences: data.cited_preference_ids || [],
+    });
+  } finally {
+    sending = false;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await ensureSession();
+  connectEvents();
+  loadMemories();
+});
+</script>
+</body>
+</html>

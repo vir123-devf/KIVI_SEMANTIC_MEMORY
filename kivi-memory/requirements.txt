@@ -1,0 +1,12 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.6
+sqlalchemy>=2.0.36
+alembic>=1.13.2
+psycopg2-binary>=2.9.10; python_version < "3.14"
+pgvector>=0.3.4
+google-genai>=1.0.0
+pydantic>=2.11.0
+python-dotenv>=1.0.1
+numpy>=2.2.0
+requests>=2.32.0
+pytest>=8.0.0
