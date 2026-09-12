@@ -1,7 +1,7 @@
 # Product positioning statement
 
-Kivi should become a careful clerk for a busy voice user, not a companion that infers who you are. Semantic memory exists so Hey Kivi can use what you already dictated—and refuse when it cannot.
+Kivi should be a clerk, for a busy voice user, not a companion that guesses who you are. Semantic memory exists so Hey Kivi can use what you already said—and say no when it can't.
 
-Value is created when you are blocked: finding a Slack note, recalling a fact you stated, polishing text in your voice. Remember only what still matters weeks later. Never assume mood, goals, or anything tools did not return.
+Value is created when you are stopped: finding a Slack note remembering a fact you said, editing text in your voice. Keep only what is still weeks later. Never guess mood, goals or anything tools did not provide.
 
-Trust comes from inspectable memory, supersede-not-overwrite, user rejection, and abstention over invention.
+Trust comes from memory that can be checked replacing not overwriting, user refusal and not making things up.
