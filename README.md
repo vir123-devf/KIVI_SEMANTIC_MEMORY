@@ -17,24 +17,24 @@ The runnable app lives in **[`kivi-memory/`](kivi-memory/)**. Same README is the
 
 1. [The Product](#the-product)
    * [Built With](#built-with)
-2. [Use Cases](#use-cases)
-3. [Architecture](#architecture)
+2. [Demo video](#demo-video)
+3. [Use Cases](#use-cases)
+4. [Architecture](#architecture)
    * [Pipeline overview](#pipeline-overview)
    * [Stage-by-stage breakdown](#stage-by-stage-breakdown)
    * [Why these design choices](#why-these-design-choices)
-4. [Getting Started](#getting-started)
+5. [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Installation](#installation)
-5. [Usage](#usage)
-   * [Demo video](#demo-video)
-6. [Results](#results)
-7. [Repository Structure](#repository-structure)
-8. [Limitations](#limitations)
-9. [AI Use](#ai-use)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Contact](#contact)
-13. [Acknowledgments](#acknowledgments)
+6. [Usage](#usage)
+7. [Results](#results)
+8. [Repository Structure](#repository-structure)
+9. [Limitations](#limitations)
+10. [AI Use](#ai-use)
+11. [Contributing](#contributing)
+12. [License](#license)
+13. [Contact](#contact)
+14. [Acknowledgments](#acknowledgments)
 
 </details>
 
@@ -79,7 +79,15 @@ A mood tracker, a relationship graph, a goal engine, or an org-wide brain. Those
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
 ---
+## Demo video
 
+Walkthrough of Hey Kivi, live memory, and fact updates:
+
+**[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
+
+[![Kivi demo](https://img.youtube.com/vi/zk7cpzY6mDo/maxresdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
+
+---
 ## Use Cases
 
 Scoped to three jobs that are useful without each other. If a feature does not serve one of these, it does not ship.
@@ -226,7 +234,7 @@ docker compose up -d && alembic upgrade head   # optional
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
 ---
-### Usage
+## Usage
 
 ```powershell
 cd kivi-memory
@@ -246,14 +254,6 @@ Open **http://127.0.0.1:8000/** — header should read **live**.
 ```
 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
-
-### Demo video
-
-Walkthrough of Hey Kivi, live memory, and fact updates:
-
-**[Watch on YouTube](https://youtu.be/zk7cpzY6mDo)**
-
-[![Kivi demo](https://img.youtube.com/vi/zk7cpzY6mDo/maxresdefault.jpg)](https://youtu.be/zk7cpzY6mDo)
 
 ---
 
