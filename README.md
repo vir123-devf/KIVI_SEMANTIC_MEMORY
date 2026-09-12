@@ -8,7 +8,7 @@ The runnable app lives in **[`kivi-memory/`](kivi-memory/)**. Same README is the
 
 [Watch the Demo](https://www.youtube.com/watch?v=VghEaDrttvo) · [Open the live UI](http://127.0.0.1:8000/) · [API docs](http://127.0.0.1:8000/docs) · [Positioning](kivi-memory/docs/positioning-statement.md) · [Product vision](kivi-memory/docs/product-vision.md)
 
-[![Kivi demo](https://img.youtube.com/vi/VghEaDrttvo/maxresdefault.jpg)](https://www.youtube.com/watch?v=VghEaDrttvo)
+
 
 ---
 
