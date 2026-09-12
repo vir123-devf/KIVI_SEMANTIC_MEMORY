@@ -1,3 +1,5 @@
+# Hare Krishna :)
+# Install all packages:
 import os
 import json
 from fastapi import FastAPI, HTTPException
@@ -100,3 +102,4 @@ def get_turn(turn_id: str):
 
 if os.path.isdir("../frontend"):
     app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
+
