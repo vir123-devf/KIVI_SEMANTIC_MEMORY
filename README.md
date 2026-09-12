@@ -377,19 +377,14 @@ Override `EXTRACTION_MODEL`, `AGENT_MODEL`, `EMBEDDING_MODEL` in `.env` with no 
 
 ---
 
-## License
-
-Take-home / portfolio use. Add a `LICENSE` file if you publish the repo.
-
-<p align="right">(<a href="#kivi-">back to top</a>)</p>
-
----
-
 ## Contact
 
-**Virendra Badgotya**  
-M.Tech, DSAI Department, IIT Madras  
-[da26m027@smail.iitm.ac.in](mailto:da26m027@smail.iitm.ac.in)
+**Virendra Badgotya:**
+M.Tech, DSAI Department, IIT Madras 
+[![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/virendra-badgotya-ai/)
+[![](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:da26m027@smail.iitm.ac.in)
+ 
+
 
 <p align="right">(<a href="#kivi-">back to top</a>)</p>
 
